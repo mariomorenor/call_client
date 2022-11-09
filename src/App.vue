@@ -15,8 +15,7 @@ export default {
         console.log(response);
         this.store.managers = [...response]
       });
-
-    }
+    },
   },
 }
 </script>

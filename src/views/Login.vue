@@ -20,6 +20,7 @@
                 <option v-for="manager in managers" :key="manager.id" :value="manager.department">{{ manager.department
                 }}</option>
             </select>
+            <button @click="reloadDepartments()">Recargar</button>
         </div>
         <hr>
         <div>
@@ -30,7 +31,7 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapWritableState } from 'pinia';
 import { useStore } from '../store';
 
 export default {
@@ -42,13 +43,18 @@ export default {
     },
     methods: {
         joinDepartment() {
-
+            sessionStorage.setItem("client", JSON.stringify({ ...this.client, department: this.department, tipo: "cliente" }))
             this.$router.push({ name: "Home" });
             this.$socket.emit("nuevo", { ...this.client, department: this.department, tipo: "cliente" })
+        },
+        reloadDepartments() {
+            this.$socket.emit("managers_conectados", null, (response) => {
+                this.managers = [...response]
+            });
         }
     },
     computed: {
-        ...mapState(useStore, ["managers", "client"])
+        ...mapWritableState(useStore, ["managers", "client"])
     }
 }
 </script>

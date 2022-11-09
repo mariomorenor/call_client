@@ -12,6 +12,17 @@ import { useStore } from '../store';
 
 export default {
   name: "HomeView",
+  beforeMount() {
+    let client = sessionStorage.getItem("client");
+    if (!client) {
+      this.$router.replace({ name: "Login" })
+    }
+    client = JSON.parse(client);
+    // this.$socket.emit("nuevo", client)
+  },
+  mounted(){
+    sessionStorage.clear();
+  },  
   computed: {
     ...mapState(useStore, ["client"])
   },
