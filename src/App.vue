@@ -11,8 +11,8 @@ export default {
   },
   sockets: {
     connect() {
-
       this.$socket.emit("managers_conectados", null, (response) => {
+        console.log(response);
         this.store.managers = [...response]
       });
 

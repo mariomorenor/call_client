@@ -3,6 +3,11 @@ import { defineStore } from "pinia";
 export const useStore = defineStore("main", {
 
     state:()=>({
-        managers:[]
+        managers:[],
+        client:{
+            name:"",
+            identity:"",
+            career:""
+        }
     })
 });

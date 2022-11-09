@@ -23,7 +23,7 @@
         </div>
         <hr>
         <div>
-            <button @click="connect()">Conectarse!</button>
+            <button @click="joinDepartment()">Conectarse!</button>
         </div>
 
     </div>
@@ -37,22 +37,18 @@ export default {
     name: "LoginView",
     data() {
         return {
-            client: {
-                name: "",
-                identity: "",
-                career: ""
-            },
             department: "Solo se muestran Departamentos disponibles"
         }
     },
     methods: {
-        connect() {
+        joinDepartment() {
+
             this.$router.push({ name: "Home" });
-            this.$socket.emit("join_department", { client: this.client, department: this.department })
+            this.$socket.emit("nuevo", { ...this.client, department: this.department, tipo: "cliente" })
         }
     },
     computed: {
-        ...mapState(useStore, ["managers"])
+        ...mapState(useStore, ["managers", "client"])
     }
 }
 </script>
