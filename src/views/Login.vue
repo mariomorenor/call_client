@@ -41,11 +41,15 @@ export default {
             department: "Solo se muestran Departamentos disponibles"
         }
     },
+    mounted() {
+        
+    },
     methods: {
         joinDepartment() {
             sessionStorage.setItem("client", JSON.stringify({ ...this.client, department: this.department, tipo: "cliente" }))
             this.$router.push({ name: "Home" });
-            this.$socket.emit("nuevo", { ...this.client, department: this.department, tipo: "cliente" })
+
+            this.$socket.emit("nuevo", { ...this.client, department: this.department, tipo: "cliente", peer_id: this.peer.id })
         },
         reloadDepartments() {
             this.$socket.emit("managers_conectados", null, (response) => {
@@ -54,7 +58,7 @@ export default {
         }
     },
     computed: {
-        ...mapWritableState(useStore, ["managers", "client"])
+        ...mapWritableState(useStore, ["managers", "client","peer"])
     }
 }
 </script>
