@@ -17,7 +17,7 @@ app
   .use(
     new VueSocketIO({
       debug: true,
-      connection: io("http://localhost:3000"),
+      connection: io("http://192.168.250.125:3000"),
     })
   );
 

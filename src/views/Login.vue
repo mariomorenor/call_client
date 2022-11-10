@@ -42,13 +42,14 @@ export default {
         }
     },
     mounted() {
-        
+
     },
     methods: {
         joinDepartment() {
             sessionStorage.setItem("client", JSON.stringify({ ...this.client, department: this.department, tipo: "cliente" }))
             this.$router.push({ name: "Home" });
-
+            this.client = { ...this.client, department: this.department, tipo: "cliente", peer_id: this.peer.id, socket_id: this.$socket.id }
+            console.log(this.client);
             this.$socket.emit("nuevo", { ...this.client, department: this.department, tipo: "cliente", peer_id: this.peer.id })
         },
         reloadDepartments() {
@@ -58,7 +59,7 @@ export default {
         }
     },
     computed: {
-        ...mapWritableState(useStore, ["managers", "client","peer"])
+        ...mapWritableState(useStore, ["managers", "client", "peer"])
     }
 }
 </script>
